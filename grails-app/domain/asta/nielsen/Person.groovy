@@ -1,6 +1,8 @@
 package asta.nielsen
 
 class Person {
+    Date dateCreated
+    Date lastUpdated
 
     String title
     String prename
@@ -9,9 +11,10 @@ class Person {
     Date deathdate
 
     static constraints = {
-    }
-
-    static mapping = {
-        autoTimestamp true
+        title nullable: true
+        prename nullable: true
+        surname nullable: false
+        birthdate nullable: true
+        deathdate nullable: true
     }
 }

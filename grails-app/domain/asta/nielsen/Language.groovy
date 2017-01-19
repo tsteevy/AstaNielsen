@@ -1,14 +1,11 @@
 package asta.nielsen
 
 class Language {
-
     String name
     String isoCode
 
     static constraints = {
-    }
-
-    static mapping = {
-        autoTimestamp true
+        name nullable: false
+        isoCode nullable: false
     }
 }

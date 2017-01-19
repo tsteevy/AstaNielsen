@@ -1,12 +1,7 @@
 package asta.nielsen
 
-class TextType {
-    String type
-
-    static mapping = {
-        autoTimestamp true
-    }
-
-    static constraints = {
-    }
+enum TextType {
+    LOCAL_PRESS('local press'),
+    NON_FILM_JOURNALS('non-film journals'),
+    TRADE_PRESS('trade press')
 }

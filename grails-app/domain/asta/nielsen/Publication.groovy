@@ -1,14 +1,14 @@
 package asta.nielsen
 
 class Publication {
+    Date dateCreated
+    Date lastUpdated
 
     String name
     TextType textType
 
     static constraints = {
-    }
-
-    static mapping = {
-        autoTimestamp true
+        name nullable: false
+        textType nullable: false
     }
 }

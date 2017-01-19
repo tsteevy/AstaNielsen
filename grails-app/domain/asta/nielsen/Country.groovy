@@ -1,9 +1,12 @@
 package asta.nielsen
 
 class Country {
+    Date dateCreated
+    Date lastUpdated
+
     String name
 
-    static mapping = {
-        autoTimestamp true
+    static constraints = {
+        name nullable: false
     }
 }

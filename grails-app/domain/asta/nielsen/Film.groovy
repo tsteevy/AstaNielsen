@@ -1,16 +1,17 @@
 package asta.nielsen
 
 class Film {
+    Date dateCreated
+    Date lastUpdated
 
     Date date
-    FilmTitle orginalTitle
-    FilmTitle[] oterDistributionTitles
-    Person[] actors
+    FilmTitle originalTitle
 
-    static mapping = {
-        autoTimestamp true
-    }
+    static hasMany = [distributionTitles: FilmTitle]
 
     static constraints = {
+        originalTitle nullable: false
+        distributionTitles nullable: true
+        date nullable: true
     }
 }
