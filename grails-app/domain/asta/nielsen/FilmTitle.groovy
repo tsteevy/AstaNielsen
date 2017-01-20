@@ -11,6 +11,11 @@ class FilmTitle {
     static constraints = {
         title nullable: false
         country nullable: true
-        language nullable: false
+        language nullable: true
+    }
+
+    @Override
+    String toString() {
+        return title
     }
 }

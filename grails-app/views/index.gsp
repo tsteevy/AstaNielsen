@@ -5,7 +5,6 @@
 		<title>Asta Nielsen Database</title>
 	</head>
 	<body>
-		blablablabla
-	blablabla
+		content
 	</body>
 </html>
