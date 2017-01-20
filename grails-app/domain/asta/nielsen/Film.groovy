@@ -5,7 +5,10 @@ class Film {
     Date lastUpdated
 
     Date date
-    FilmTitle originalTitle
+
+    String originalTitle
+    Country originalCountry
+    Language originalLanguage
 
     static hasMany = [distributionTitles: FilmTitle]
 
@@ -13,5 +16,7 @@ class Film {
         originalTitle nullable: false
         distributionTitles nullable: true
         date nullable: true
+        originalLanguage nullable: true
+        originalCountry nullable: true
     }
 }

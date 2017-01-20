@@ -7,6 +7,7 @@
 
 <body>
     <h2>List of existing films</h2>
+
 <ul class="list-group">
 
     <g:if test="${films.size() > 0}">

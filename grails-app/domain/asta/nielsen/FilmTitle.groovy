@@ -8,6 +8,8 @@ class FilmTitle {
     Country country
     Language language
 
+    static belongsTo = [film: Film]
+
     static constraints = {
         title nullable: false
         country nullable: true
