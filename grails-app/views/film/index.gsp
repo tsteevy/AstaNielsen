@@ -6,8 +6,8 @@
 </head>
 
 <body>
-    <g:each var="film" in="${films}">
-        <p>Title: ${film.originalTitle}</p>
+    <g:each in="${films}">
+        <p>Title: ${it.originalTitle}</p>
     </g:each>
 
     <h2>Create new Film</h2>
