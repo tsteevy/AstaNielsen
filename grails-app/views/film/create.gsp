@@ -1,8 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="asta.nielsen.Language" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Film Overview</title>
+    <title>Film Creation</title>
 </head>
 
 <body>
@@ -14,17 +14,39 @@
         </div>
 
         <div class="form-group">
-            <label for="otherTitles">Other Distribution Titles:</label>
-            <g:select class="form-control"
+            <label for="language">Language</label>
+            <g:select name="language"
+                      from="${asta.nielsen.Language.list()}"
                       optionKey="id"
-                      optionValue="name"
-                      name="otherTitles"
-                      from="${film?.distributionTitles}"
-                      noSelection="['':'-Choose Titles-']" />
+                      class="form-control"/>
         </div>
+
+        <g:link controller="language" action="create" class="form-control btn btn-primary">Create new Language</g:link>
+
+        <div class="form-group">
+            <label for="country">Country</label>
+            <g:select name="country"
+                      from="${asta.nielsen.Country.list()}"
+                      optionKey="id"
+                      class="form-control"/>
+        </div>
+
+        <g:link controller="country" action="create" class="form-control btn btn-primary">Create new Country</g:link>
+
+        <div class="form-group">
+            <g:datePicker name="date"
+                          default="${Date.parse("yyyy-MM-dd hh:mm:ss", "1910-01-01 1:23:45")}"
+                          precision="day"
+                          class="form-control"/>
+        </div>
+
+
 
         <div class="form-group">
             <input type="submit" class="form-control btn btn-primary" value="Create" />
+        </div>
+        <div class="form-group">
+            <g:link action="index" class="form-control btn btn-warning">back</g:link>
         </div>
     </g:form>
 </body>

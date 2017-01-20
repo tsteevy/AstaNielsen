@@ -8,4 +8,9 @@ class Language {
         name nullable: false
         isoCode nullable: false
     }
+
+    @Override
+    String toString() {
+        return name + "(" + isoCode + ")"
+    }
 }

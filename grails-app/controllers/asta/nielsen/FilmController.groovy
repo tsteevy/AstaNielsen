@@ -10,6 +10,14 @@ class FilmController {
 
     }
 
+    def edit(Film filmInstance) {
+        respond filmInstance
+    }
+
+    def delete(Film filmInstance) {
+        respond filmInstance
+    }
+
     def save() {
         def originalTitle = new FilmTitle(title: params['originalFilmTitle'] )
         originalTitle.save()
