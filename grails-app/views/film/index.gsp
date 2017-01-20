@@ -6,30 +6,11 @@
 </head>
 
 <body>
+    <h2>List of existing films</h2>
     <g:each in="${films}">
         <p>Title: ${it.originalTitle}</p>
     </g:each>
 
-    <h2>Create new Film</h2>
-    <g:form name="createFilmForm" action="create">
-        <div class="form-group">
-            <label for="originalFilmTitle">Original Film Title</label>
-            <g:textField name="originalFilmTitle" id="originalFilmTitle" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label for="otherTitles">Other Distribution Titles:</label>
-            <g:select class="form-control"
-                      optionKey="id"
-                      optionValue="name"
-                      name="otherTitles"
-                      from="${film?.distributionTitles}"
-                      noSelection="['':'-Choose Titles-']" />
-        </div>
-
-        <div class="form-group">
-            <input type="submit" class="form-control btn btn-primary" value="Create" />
-        </div>
-    </g:form>
+    <g:link action="create" class="btn btn-primary">Create a new film</g:link>
 </body>
 </html>

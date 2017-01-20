@@ -7,6 +7,10 @@ class FilmController {
     }
 
     def create() {
+
+    }
+
+    def save() {
         def originalTitle = new FilmTitle(title: params['originalFilmTitle'] )
         originalTitle.save()
         def filmInstance = new Film(originalTitle: originalTitle)
