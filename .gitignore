@@ -6,6 +6,7 @@ classes
 /*/bin
 /conf
 .slcache/
+.asscache
 *.ipr
 *.iml
 *.iws
