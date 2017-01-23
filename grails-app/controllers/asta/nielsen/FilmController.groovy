@@ -24,12 +24,12 @@ class FilmController {
             return
         }
 
-        filmInstance.save flush:true
+        filmService.saveFilm(filmInstance)
         redirect(action: "index")
     }
 
     def remove(Film filmInstance) {
-        filmInstance?.delete flush:true
+        filmService.deleteFilm(filmInstance)
 
         redirect(action: "index")
     }
@@ -46,12 +46,12 @@ class FilmController {
             return
         }
 
-        filmInstance.save flush:true
+        filmService.saveFilm(filmInstance)
         redirect(action: "edit", id: filmInstance.id)
     }
 
     def addFilmTitle(Film filmInstance) {
-        filmInstance.addToDistributionTitles(params).save flush: true
+        filmService.addFilmTitles(filmInstance, new FilmTitle(params))
 
         redirect(action: "edit", id: filmInstance.id)
     }
