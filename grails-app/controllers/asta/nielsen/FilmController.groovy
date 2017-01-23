@@ -2,6 +2,8 @@ package asta.nielsen
 
 class FilmController {
 
+    def filmService
+
     def index() {
         [films: Film.getAll()]
     }
@@ -55,8 +57,7 @@ class FilmController {
     }
 
     def delete_title(Film filmInstance) {
-        FilmTitle.find {id==params.get("title_id")}.delete()
-        filmInstance.save flush:true
+        filmService.deleteTitle(filmInstance, params.get("title_id"))
 
         redirect(action: "edit", id: filmInstance.id)
     }
