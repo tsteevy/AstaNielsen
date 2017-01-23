@@ -14,6 +14,18 @@ class FilmController {
         respond filmInstance
     }
 
+    def update(Film filmInstance) {
+        filmInstance.validate()
+
+        if (filmInstance.hasErrors()) {
+            respond filmInstance, view:'edit'
+            return
+        }
+
+        filmInstance.save flush:true
+        redirect(action: "index")
+    }
+
     def remove(Film filmInstance) {
         filmInstance?.delete flush:true
 

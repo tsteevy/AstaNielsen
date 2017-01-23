@@ -17,7 +17,7 @@
 </g:hasErrors>
 
 <h2>Edit existing Film</h2>
-<g:form name="editFilmForm" action="save">
+<g:form name="editFilmForm" url="[resource:filmInstance, action:'update']" method="PUT">
     <div class="form-group ${hasErrors(bean: filmInstance, field: 'originalTitle', 'has-danger')}" >
         <label for="originalTitle">Original Film Title</label>
         <g:textField name="originalTitle" id="originalTitle" value="${filmInstance.originalTitle}"
@@ -54,6 +54,11 @@
                       precision="day"
                       value="${filmInstance.date}" />
     </div>
+
+    <g:each in="${filmInstance.distributionTitles}">
+        <p>Title: ${it.title}</p>
+        <p>Language: ${it.language}</p>
+    </g:each>
 
     <div class="form-group">
         <input type="submit" class="form-control btn btn-primary" value="Save Changes" />
