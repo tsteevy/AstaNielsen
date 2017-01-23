@@ -30,7 +30,7 @@
                       from="${asta.nielsen.Language.list()}"
                       optionKey="id"
                       class="form-control"
-                      value="${filmInstance.originalLanguage}"/>
+                      value="${filmInstance?.originalLanguage?.id}"/>
         </div>
 
         <g:link controller="language" action="create" class="form-control btn btn-link">Create new Language</g:link>
@@ -40,7 +40,8 @@
             <g:select name="originalCountry"
                       from="${asta.nielsen.Country.list()}"
                       optionKey="id"
-                      class="form-control"/>
+                      class="form-control"
+                      value="${filmInstance?.originalCountry?.id}"/>
         </div>
 
         <g:link controller="country" action="create" class="form-control btn btn-link">Create new Country</g:link>
@@ -53,8 +54,6 @@
                           precision="day"
                           value="${filmInstance.date}" />
         </div>
-
-
 
         <div class="form-group">
             <input type="submit" class="form-control btn btn-primary" value="Create Film" />

@@ -6,6 +6,11 @@ class Country {
 
     String name
 
+    @Override
+    String toString() {
+        return name
+    }
+
     static constraints = {
         name nullable: false
     }

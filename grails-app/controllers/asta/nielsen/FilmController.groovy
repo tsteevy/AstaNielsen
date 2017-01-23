@@ -14,6 +14,12 @@ class FilmController {
         respond filmInstance
     }
 
+    def remove(Film filmInstance) {
+        filmInstance?.delete flush:true
+
+        redirect(action: "index")
+    }
+
     def delete(Film filmInstance) {
         respond filmInstance
     }
