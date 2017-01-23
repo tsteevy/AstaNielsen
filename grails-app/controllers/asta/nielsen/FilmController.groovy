@@ -49,10 +49,7 @@ class FilmController {
     }
 
     def addFilmTitle(Film filmInstance) {
-        render  params
-
-        filmInstance.addToDistributionTitles(params)
-        filmInstance.save flush: true
+        filmInstance.addToDistributionTitles(params).save flush: true
 
         redirect(action: "edit", id: filmInstance.id)
     }

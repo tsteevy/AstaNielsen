@@ -56,6 +56,8 @@
     </div>
 </g:form>
 
+<h2>Alternative film titles</h2>
+
 <div class="form-group">
     <g:if test="${filmInstance.distributionTitles.size() > 0}">
         <g:each in="${filmInstance.distributionTitles}">
