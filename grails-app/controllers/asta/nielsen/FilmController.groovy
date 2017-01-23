@@ -45,7 +45,7 @@ class FilmController {
         }
 
         filmInstance.save flush:true
-        redirect(action: "index")
+        redirect(action: "edit", id: filmInstance.id)
     }
 
     def addFilmTitle(Film filmInstance) {
