@@ -3985,3 +3985,6 @@ n:1964:org/codehaus/groovy/control/messages/SyntaxErrorMessage
 n:3175:org/codehaus/groovy/tools/ErrorReporter
 n:2262:org/codehaus/groovy/tools/Utilities
 n:2188:org/codehaus/groovy/grails/commons/GrailsApplication$addArtefact$0
+n:1106:org/grails/datastore/mapping/reflect/ClassPropertyFetcher$1
+y:1967:org/grails/datastore/mapping/reflect/ClassPropertyFetcher$GetterPropertyFetcher
+y:5602:org/grails/datastore/mapping/reflect/ReflectionUtils

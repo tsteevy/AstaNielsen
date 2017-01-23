@@ -47,4 +47,20 @@ class FilmController {
         filmInstance.save flush:true
         redirect(action: "index")
     }
+
+    def addFilmTitle(Film filmInstance) {
+        render  params
+
+        filmInstance.addToDistributionTitles(params)
+        filmInstance.save flush: true
+
+        redirect(action: "edit", id: filmInstance.id)
+    }
+
+    def delete_title(Film filmInstance) {
+        FilmTitle.find {id==params.get("title_id")}.delete()
+        filmInstance.save flush:true
+
+        redirect(action: "edit", id: filmInstance.id)
+    }
 }
