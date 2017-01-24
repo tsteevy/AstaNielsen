@@ -17,14 +17,13 @@ class FilmController {
     }
 
     def update(Film filmInstance) {
-        filmInstance.validate()
+        filmService.saveFilm(filmInstance)
 
         if (filmInstance.hasErrors()) {
             respond filmInstance, view:'edit'
             return
         }
 
-        filmService.saveFilm(filmInstance)
         redirect(action: "index")
     }
 
@@ -39,21 +38,20 @@ class FilmController {
     }
 
     def save(Film filmInstance) {
-        filmInstance.validate()
+        filmService.saveFilm(filmInstance)
 
         if (filmInstance.hasErrors()) {
             respond filmInstance, view:'create'
             return
         }
 
-        filmService.saveFilm(filmInstance)
         redirect(action: "edit", id: filmInstance.id)
     }
 
     def addFilmTitle(Film filmInstance) {
-        filmService.addFilmTitles(filmInstance, new FilmTitle(params))
+        filmInstance = filmService.addFilmTitles(filmInstance, new FilmTitle(params))
 
-        redirect(action: "edit", id: filmInstance.id)
+        render(template: "filmtitlelist", model: [filmInstance: filmInstance])
     }
 
     def delete_title(Film filmInstance) {

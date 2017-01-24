@@ -15,8 +15,10 @@ class FilmService {
 
     def saveFilm(Film filmInstance) {
         filmInstance.save flush:true
+        return filmInstance
     }
 
+    @Transactional
     def addFilmTitles(Film filmInstance, FilmTitle filmTitle) {
         filmInstance.addToDistributionTitles(filmTitle).save flush: true
     }
