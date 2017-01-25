@@ -9,6 +9,7 @@ import spock.lang.Specification
 class FilmControllerSpec extends Specification {
 
     def setup() {
+        controller.filmService = Mock(FilmService)
     }
 
     def cleanup() {
@@ -48,7 +49,6 @@ class FilmControllerSpec extends Specification {
     void "update uses filmService method to save the given film"() {
         given:
         def film = new Film(originalTitle: "aTitle")
-        controller.filmService = Mock(FilmService)
 
         when:
         controller.update(film)
@@ -60,7 +60,6 @@ class FilmControllerSpec extends Specification {
     void "update redirects to the index view after a successful save"() {
         given:
         def film = new Film(originalTitle: "aTitle")
-        controller.filmService = Mock(FilmService)
 
         when:
         controller.update(film)
@@ -72,7 +71,6 @@ class FilmControllerSpec extends Specification {
     void "remove redirects to the index view after a successful deletion"() {
         given:
         def film = new Film(originalTitle: "aTitle")
-        controller.filmService = Mock(FilmService)
 
         when:
         controller.remove(film)
@@ -84,7 +82,6 @@ class FilmControllerSpec extends Specification {
     void "remove uses filmService method to remove the given film"() {
         given:
         def film = new Film(originalTitle: "aTitle")
-        controller.filmService = Mock(FilmService)
 
         when:
         controller.remove(film)
@@ -105,7 +102,6 @@ class FilmControllerSpec extends Specification {
     void "save uses filmService method to save the given film"() {
         given:
         def film = new Film(originalTitle: "aTitle")
-        controller.filmService = Mock(FilmService)
 
         when:
         controller.save(film)
@@ -117,7 +113,6 @@ class FilmControllerSpec extends Specification {
     void "save shows create view again, when created film contains errors"() {
         given:
         def film = new Film(originalTitle: null)
-        controller.filmService = Mock(FilmService)
 
         when:
         controller.save(film)
@@ -129,7 +124,6 @@ class FilmControllerSpec extends Specification {
     void "save redirects to edit view, when created film does not contain any errors"() {
         given:
         def film = new Film(originalTitle: "a Title")
-        controller.filmService = Mock(FilmService)
 
         when:
         controller.save(film)
@@ -142,7 +136,6 @@ class FilmControllerSpec extends Specification {
         given:
         def film = new Film(originalTitle: "a title").save()
         params.title = "another Title"
-        controller.filmService = Mock(FilmService)
 
         when:
         controller.addFilmTitle(film)
@@ -156,7 +149,6 @@ class FilmControllerSpec extends Specification {
         def film = new Film(originalTitle: "a title").save()
         views['/film/_filmtitlelist.gsp'] = 'mock template contents'
         params.title = "another Title"
-        controller.filmService = Mock(FilmService)
 
         when:
         controller.addFilmTitle(film)
@@ -170,7 +162,6 @@ class FilmControllerSpec extends Specification {
         def film = new Film(originalTitle: "a title").save()
         def anotherFilmTitle = new FilmTitle(title: "another title")
         film.addToDistributionTitles(anotherFilmTitle)
-        controller.filmService = Mock(FilmService)
         params.title_id = anotherFilmTitle.id
 
         when:
@@ -185,7 +176,6 @@ class FilmControllerSpec extends Specification {
         def film = new Film(originalTitle: "a title").save()
         def anotherFilmTitle = new FilmTitle(title: "another title")
         film.addToDistributionTitles(anotherFilmTitle)
-        controller.filmService = Mock(FilmService)
         params.title_id = anotherFilmTitle.id
         def expectedUrl = "/film/edit/" + film.id
 
