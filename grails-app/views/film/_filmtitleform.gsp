@@ -21,3 +21,10 @@
               from='${asta.nielsen.Country.list()}'
               optionKey="id" optionValue="name" class="form-control"></g:select>
 </div>
+
+<div class="input-group">
+    <g:submitToRemote url="[resource: film, action: 'addFilmTitle']" update="updatableTitleList"
+                      class="btn btn-primary" value="Add"
+                      onSuccess="\$('#addAlternativeTitleForm')[0].reset();\$('#title')[0].focus()"/>
+</div>
+

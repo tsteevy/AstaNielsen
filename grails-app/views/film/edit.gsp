@@ -68,11 +68,7 @@
     <div class="form-group">
         <div id="titleForm" class="collapse">
             <g:form class="form-inline" name="addAlternativeTitleForm" id="addAlternativeTitleForm">
-                <g:render template="filmtitleform" model="[film: it]"/>
-
-                <g:submitToRemote url="[resource: filmInstance, action: 'addFilmTitle']" update="updatableTitleList"
-                                  class="btn btn-primary" value="Add"
-                                  onSuccess="\$('#addAlternativeTitleForm')[0].reset();\$('#title')[0].focus()"/>
+                <g:render template="filmtitleform" model="[film: filmInstance]"/>
             </g:form>
         </div>
     </div>
