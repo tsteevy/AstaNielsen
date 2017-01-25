@@ -54,7 +54,7 @@ class FilmController {
         render(template: "filmtitlelist", model: [filmInstance: filmInstance])
     }
 
-    def delete_title(Film filmInstance) {
+    def deleteTitle(Film filmInstance) {
         filmService.deleteTitle(filmInstance, params.get("title_id"))
 
         redirect(action: "edit", id: filmInstance.id)

@@ -123,7 +123,7 @@ class FilmControllerSpec extends Specification {
         controller.save(film)
 
         then:
-        view == "create"
+        "create" == view
     }
 
     void "save redirects to edit view, when created film does not contain any errors"() {
@@ -135,7 +135,7 @@ class FilmControllerSpec extends Specification {
         controller.save(film)
 
         then:
-        response.redirectedUrl == "/film/edit"
+        "/film/edit" == response.redirectedUrl
     }
 
     void "addFilmTitle uses filmService to add a filmtitle to an existing Film"() {
@@ -148,6 +148,51 @@ class FilmControllerSpec extends Specification {
         controller.addFilmTitle(film)
 
         then:
-        1 * controller.filmService.addFilmTitles(film, new FilmTitle(title: "another Title"))
+        1 * controller.filmService.addFilmTitles(film, _)
+    }
+
+    void "addFilmTitle renders the filmtitlelist after a successful save"() {
+        given:
+        def film = new Film(originalTitle: "a title").save()
+        views['/film/_filmtitlelist.gsp'] = 'mock template contents'
+        params.title = "another Title"
+        controller.filmService = Mock(FilmService)
+
+        when:
+        controller.addFilmTitle(film)
+
+        then:
+        'mock template contents' == response.text
+    }
+
+    void "deleteTitle uses filmService to delete an existing filmtitle from a Film"() {
+        given:
+        def film = new Film(originalTitle: "a title").save()
+        def anotherFilmTitle = new FilmTitle(title: "another title")
+        film.addToDistributionTitles(anotherFilmTitle)
+        controller.filmService = Mock(FilmService)
+        params.title_id = anotherFilmTitle.id
+
+        when:
+        controller.deleteTitle(film)
+
+        then:
+        1 * controller.filmService.deleteTitle(film, anotherFilmTitle.id)
+    }
+
+    void "deleteTitle redirects to edit view after successfully removing a title"() {
+        given:
+        def film = new Film(originalTitle: "a title").save()
+        def anotherFilmTitle = new FilmTitle(title: "another title")
+        film.addToDistributionTitles(anotherFilmTitle)
+        controller.filmService = Mock(FilmService)
+        params.title_id = anotherFilmTitle.id
+        def expectedUrl = "/film/edit/" + film.id
+
+        when:
+        controller.deleteTitle(film)
+
+        then:
+        expectedUrl == response.redirectedUrl
     }
 }
