@@ -132,31 +132,6 @@ class FilmControllerSpec extends Specification {
         "/film/edit" == response.redirectedUrl
     }
 
-    void "addFilmTitle uses filmService to add a filmtitle to an existing Film"() {
-        given:
-        def film = new Film(originalTitle: "a title").save()
-        params.title = "another Title"
-
-        when:
-        controller.addFilmTitle(film)
-
-        then:
-        1 * controller.filmService.addFilmTitles(film, _)
-    }
-
-    void "addFilmTitle renders the filmtitlelist after a successful save"() {
-        given:
-        def film = new Film(originalTitle: "a title").save()
-        views['/film/_filmtitlelist.gsp'] = 'film title list for a given film'
-        params.title = "another Title"
-
-        when:
-        controller.addFilmTitle(film)
-
-        then:
-        "film title list for a given film" == response.text
-    }
-
     void "deleteTitle uses filmService to delete an existing filmtitle from a Film"() {
         given:
         def film = new Film(originalTitle: "a title").save()
@@ -184,5 +159,31 @@ class FilmControllerSpec extends Specification {
 
         then:
         expectedUrl == response.redirectedUrl
+    }
+
+    void "addFilmTitle uses filmService to add a filmtitle to an existing Film"() {
+        given:
+        def film = new Film(originalTitle: "a title")
+        params.title = "another Title"
+        def newFilmTitleProperties = [title: params.title]
+
+        when:
+        controller.addFilmTitle(film)
+
+        then:
+        1 * controller.filmService.addFilmTitles(film, newFilmTitleProperties)
+    }
+
+    void "addFilmTitle renders the filmtitlelist after a successful save"() {
+        given:
+        def film = new Film(originalTitle: "a title").save()
+        views['/film/_filmtitlelist.gsp'] = "film title list for a given film: \${filmInstance}"
+        controller.filmService.addFilmTitles(*_) >> film
+
+        when:
+        controller.addFilmTitle(film)
+
+        then:
+        "film title list for a given film: ${film}" == response.text
     }
 }

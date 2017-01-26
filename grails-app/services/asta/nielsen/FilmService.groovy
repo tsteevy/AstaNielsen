@@ -20,9 +20,22 @@ class FilmService {
         return filmInstance
     }
 
-    @Transactional
-    Film addFilmTitles(Film filmInstance, FilmTitle filmTitle) {
-        filmInstance.addToDistributionTitles(filmTitle.save()).save flush: true
+    Film addFilmTitles(Film filmInstance, def filmTitleProperties) {
+        def newFilmTitle = createFilmTitle(filmTitleProperties)
+        filmInstance.addToDistributionTitles(newFilmTitle).save flush: true
         return filmInstance
+    }
+
+    def createFilmTitle(properties) {
+        new FilmTitle(properties).save()
+    }
+
+    def findFilmsWithTitleLike(titleSearchValue) {
+        return Film.findAllByOriginalTitleIlike(titleSearchValue)
+    }
+
+    def findFilmsWithLanguagesLike(languageSearchValue) {
+        def languages = Language.findAllByNameIlike(languageSearchValue + "%")
+        return Film.findAllByOriginalLanguage(languages)
     }
 }
