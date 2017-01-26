@@ -147,14 +147,14 @@ class FilmControllerSpec extends Specification {
     void "addFilmTitle renders the filmtitlelist after a successful save"() {
         given:
         def film = new Film(originalTitle: "a title").save()
-        views['/film/_filmtitlelist.gsp'] = 'mock template contents'
+        views['/film/_filmtitlelist.gsp'] = 'film title list for a given film'
         params.title = "another Title"
 
         when:
         controller.addFilmTitle(film)
 
         then:
-        'mock template contents' == response.text
+        "film title list for a given film" == response.text
     }
 
     void "deleteTitle uses filmService to delete an existing filmtitle from a Film"() {

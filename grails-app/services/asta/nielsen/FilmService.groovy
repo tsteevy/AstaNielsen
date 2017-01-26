@@ -5,7 +5,9 @@ import grails.transaction.Transactional
 @Transactional
 class FilmService {
     void deleteTitle(Film filmInstance, titleId) {
-        FilmTitle.find {id==titleId}.delete()
+        FilmTitle filmTitle = FilmTitle.find {id==titleId}
+        filmInstance.removeFromDistributionTitles(filmTitle)
+        filmTitle.delete()
         filmInstance.save flush:true
     }
 
@@ -19,7 +21,8 @@ class FilmService {
     }
 
     @Transactional
-    def addFilmTitles(Film filmInstance, FilmTitle filmTitle) {
-        filmInstance.addToDistributionTitles(filmTitle).save flush: true
+    Film addFilmTitles(Film filmInstance, FilmTitle filmTitle) {
+        filmInstance.addToDistributionTitles(filmTitle.save()).save flush: true
+        return filmInstance
     }
 }

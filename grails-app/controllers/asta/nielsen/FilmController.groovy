@@ -49,7 +49,7 @@ class FilmController {
     }
 
     def addFilmTitle(Film filmInstance) {
-        filmInstance = filmService.addFilmTitles(filmInstance, new FilmTitle(params))
+        filmInstance = filmService.addFilmTitles(filmInstance, new FilmTitle(params).save())
 
         render(template: "filmtitlelist", model: [filmInstance: filmInstance])
     }
