@@ -112,6 +112,7 @@ log4j.main = {
            'org.codehaus.groovy.grails.plugins',            // plugins
            'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
            'org.springframework',
-           'org.hibernate',
            'net.sf.ehcache.hibernate'
+
+    debug  'org.hibernate'
 }

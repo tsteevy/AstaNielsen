@@ -163,9 +163,12 @@ class FilmControllerSpec extends Specification {
 
     void "addFilmTitle uses filmService to add a filmtitle to an existing Film"() {
         given:
-        def film = new Film(originalTitle: "a title")
+        def film = new Film(originalTitle: "a title").save()
         params.title = "another Title"
-        def newFilmTitleProperties = [title: params.title]
+        params.language = null
+//        params.id = film.id
+        params.country = null
+        def newFilmTitleProperties = [title: params.title, language: params.language, country: params.country]
 
         when:
         controller.addFilmTitle(film)

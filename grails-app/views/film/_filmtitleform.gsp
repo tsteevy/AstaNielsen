@@ -15,6 +15,8 @@
 
 <label class="sr-only" for="country">Country</label>
 
+<g:hiddenField name="id" value="${film.id}" />
+
 <div class="input-group">
     <g:select id="country" name='country' value="${country?.id}"
               noSelection="${['null': 'Select Country']}"

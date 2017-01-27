@@ -48,8 +48,11 @@ class FilmController {
         redirect(action: "edit", id: filmInstance.id)
     }
 
-    def addFilmTitle(def filmInstance) {
-        filmInstance = filmService.addFilmTitles(filmInstance, [title: params.title])
+    def addFilmTitle(Film filmInstance) {
+        log.info(filmInstance)
+        if (filmInstance == null)
+            return
+        filmInstance = filmService.addFilmTitles(filmInstance, [title: params.title, language: params.language, country: params.country])
 
         render(template: "filmtitlelist", model: [filmInstance: filmInstance])
     }
@@ -65,6 +68,6 @@ class FilmController {
     }
 
     def findLanguagesLike() {
-        render(view: 'index', model: [films: filmService.findFilmsWithLanguagesLike(params.searchQuery)])
+        render(view: 'index', model: [films: filmService.findFilmsWithLanguagesLikeWithCriteria(params.searchQuery)])
     }
 }
