@@ -70,4 +70,8 @@ class FilmController {
     def findLanguagesLike() {
         render(view: 'index', model: [films: filmService.findFilmsWithLanguagesLikeWithCriteria(params.searchQuery)])
     }
+
+    def findTitlesLikeHql() {
+        render(view: 'index', model: [films: filmService.findFilmsWithTitleLikeWithHql(params.searchQuery)])
+    }
 }

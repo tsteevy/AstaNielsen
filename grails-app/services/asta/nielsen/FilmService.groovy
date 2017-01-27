@@ -61,4 +61,13 @@ class FilmService {
 
         return results
     }
+
+    def findFilmsWithTitleLikeWithHql(titleSearchValue) {
+        def extendedSearchValue = titleSearchValue + "%"
+        def results =
+                Film.findAll("from Film as f " +
+                        "where f.originalTitle like :search",
+                        [search: extendedSearchValue])
+        return results
+    }
 }
