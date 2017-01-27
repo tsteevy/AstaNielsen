@@ -1,7 +1,9 @@
 package asta.nielsen
 
 import grails.transaction.Transactional
+import org.hibernate.FetchMode
 import org.hibernate.criterion.CriteriaSpecification
+import org.hibernate.sql.JoinType
 
 @Transactional
 class FilmService {
@@ -51,16 +53,13 @@ class FilmService {
         def extendedSearchValue = languageSearchValue + "%"
 
         def results = criteria.list {
-            createAlias("distributionTitles", "dt", CriteriaSpecification.LEFT_JOIN)
-            createAlias("dt.language", "l", CriteriaSpecification.LEFT_JOIN)
-//            createAlias("originalLanguage", "ol")
-//            ilike("ol.name", extendedSearchValue)
+            createAlias("distributionTitles", "dt", JoinType.LEFT_OUTER_JOIN)
+            createAlias("dt.language", "l", JoinType.LEFT_OUTER_JOIN)
+            createAlias("originalLanguage", "ol")
 
             or {
-                like("l.name", extendedSearchValue)
-                originalLanguage {
-                    like ("name", extendedSearchValue)
-                }
+                ilike("l.name", extendedSearchValue)
+                ilike("ol.name", extendedSearchValue)
             }
         }
 
