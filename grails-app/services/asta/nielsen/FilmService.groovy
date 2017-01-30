@@ -1,9 +1,7 @@
 package asta.nielsen
 
-import grails.transaction.Transactional
 import org.hibernate.sql.JoinType
 
-@Transactional
 class FilmService {
     void deleteTitle(Film filmInstance, titleId) {
         FilmTitle filmTitle = FilmTitle.find {id==titleId}
@@ -14,6 +12,10 @@ class FilmService {
 
     def deleteFilm(Film filmInstance) {
         filmInstance?.delete flush:true
+    }
+
+    def findAll() {
+        return Film.findAll()
     }
 
     def saveFilm(Film filmInstance) {
