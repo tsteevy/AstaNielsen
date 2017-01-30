@@ -1,11 +1,10 @@
 package asta.nielsen
 
-import grails.test.mixin.TestFor
 import grails.test.spock.IntegrationSpec
 
-@TestFor(FilmService)
 class FilmServiceIntegrationSpec extends IntegrationSpec {
     def existingFilms
+    def filmService
 
     void setup() {
         existingFilms = Film.findAll()
@@ -16,7 +15,7 @@ class FilmServiceIntegrationSpec extends IntegrationSpec {
         def film = new Film(originalTitle: "title").save()
 
         expect:
-        existingFilms << film == service.findAll()
+        existingFilms << film == filmService.findAll()
     }
 
     void "deleteFilm removes the given film"() {
@@ -24,7 +23,7 @@ class FilmServiceIntegrationSpec extends IntegrationSpec {
         def film = new Film(originalTitle: "title").save()
 
         when:
-        service.deleteFilm(film)
+        filmService.deleteFilm(film)
 
         then:
         existingFilms == Film.findAll()
@@ -37,7 +36,7 @@ class FilmServiceIntegrationSpec extends IntegrationSpec {
         film.addToDistributionTitles(filmTitle).save()
 
         when:
-        service.deleteTitle(film, filmTitle.id)
+        filmService.deleteTitle(film, filmTitle.id)
 
         then:
         [] == film.getDistributionTitles().toArray()
@@ -48,7 +47,7 @@ class FilmServiceIntegrationSpec extends IntegrationSpec {
         def film = new Film(originalTitle: "title")
 
         when:
-        service.saveFilm(film)
+        filmService.saveFilm(film)
 
         then:
         existingFilms << film == Film.findAll()
@@ -60,7 +59,7 @@ class FilmServiceIntegrationSpec extends IntegrationSpec {
         def film = new Film(originalTitle: "title").save()
 
         when:
-        service.addFilmTitles(film, [title: 'another title'])
+        filmService.addFilmTitles(film, [title: 'another title'])
 
         then:
         'another title' == film.getDistributionTitles()[0].title
@@ -71,7 +70,7 @@ class FilmServiceIntegrationSpec extends IntegrationSpec {
         def properties = [title: 'a filmtitle']
 
         expect:
-        'a filmtitle' == service.createFilmTitle(properties).title
+        'a filmtitle' == filmService.createFilmTitle(properties).title
     }
 
     void "findFilmsWithTitleLike returns all films with a title corresponding to the search term"() {
@@ -80,7 +79,7 @@ class FilmServiceIntegrationSpec extends IntegrationSpec {
         new Film(originalTitle: "not matching title").save()
 
         expect:
-        [film] == service.findFilmsWithTitleLike("ti%")
+        [film] == filmService.findFilmsWithTitleLike("ti%")
     }
 
     void "findFilmsWithTitleLike returns no films when the search term does not match any films"() {
@@ -88,7 +87,7 @@ class FilmServiceIntegrationSpec extends IntegrationSpec {
         new Film(originalTitle: "title").save()
 
         expect:
-        [] == service.findFilmsWithTitleLike("a title which is unlikely to be found at anytime, because it is so long and specific")
+        [] == filmService.findFilmsWithTitleLike("a title which is unlikely to be found at anytime, because it is so long and specific")
     }
 
     void "findFilmsWithLanguagesLikeWithCriteria returns all films with a corresponding language or language for any alternative title"() {
@@ -101,7 +100,7 @@ class FilmServiceIntegrationSpec extends IntegrationSpec {
                 .addToDistributionTitles(new FilmTitle(title: "another distribution Title", language: matchingLanguage)).save()
 
         expect:
-        [film, anotherFilm] == service.findFilmsWithLanguagesLikeWithCriteria("match")
+        [film, anotherFilm] == filmService.findFilmsWithLanguagesLikeWithCriteria("match")
     }
 
     void "findFilmsWithTitleLikeWithHql returns all films with a title corresponding to the search term"() {
@@ -110,8 +109,6 @@ class FilmServiceIntegrationSpec extends IntegrationSpec {
         new Film(originalTitle: "not matching title").save()
 
         expect:
-        [film] == service.findFilmsWithTitleLikeWithHql("ti%")
+        [film] == filmService.findFilmsWithTitleLikeWithHql("ti%")
     }
-
-
 }
