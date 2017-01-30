@@ -1,8 +1,6 @@
 package asta.nielsen
 
 import grails.transaction.Transactional
-import org.hibernate.FetchMode
-import org.hibernate.criterion.CriteriaSpecification
 import org.hibernate.sql.JoinType
 
 @Transactional

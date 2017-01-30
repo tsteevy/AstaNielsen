@@ -8,11 +8,19 @@ class FilmController {
         [films: Film.getAll()]
     }
 
+    def viewList() {
+        [films: Film.getAll()]
+    }
+
     def create() {
         respond new Film(params)
     }
 
     def edit(Film filmInstance) {
+        respond filmInstance
+    }
+
+    def view(Film filmInstance) {
         respond filmInstance
     }
 

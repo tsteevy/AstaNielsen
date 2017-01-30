@@ -27,7 +27,7 @@
     <div class="form-group">
         <label for="originalLanguage">Language</label>
         <g:select name="originalLanguage"
-                  from="${asta.nielsen.Language.list()}"
+                  from="${Language.list()}"
                   optionKey="id"
                   class="form-control"
                   value="${filmInstance?.originalLanguage?.id}"/>
@@ -38,7 +38,7 @@
     <div class="form-group">
         <label for="originalCountry">Country</label>
         <g:select name="originalCountry"
-                  from="${asta.nielsen.Country.list()}"
+                  from="${Country.list()}"
                   optionKey="id"
                   class="form-control"
                   value="${filmInstance?.originalCountry?.id}"/>
