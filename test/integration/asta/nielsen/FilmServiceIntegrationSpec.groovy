@@ -73,4 +73,45 @@ class FilmServiceIntegrationSpec extends IntegrationSpec {
         expect:
         'a filmtitle' == service.createFilmTitle(properties).title
     }
+
+    void "findFilmsWithTitleLike returns all films with a title corresponding to the search term"() {
+        given:
+        def film = new Film(originalTitle: "title").save()
+        new Film(originalTitle: "not matching title").save()
+
+        expect:
+        [film] == service.findFilmsWithTitleLike("ti%")
+    }
+
+    void "findFilmsWithTitleLike returns no films when the search term does not match any films"() {
+        given:
+        new Film(originalTitle: "title").save()
+
+        expect:
+        [] == service.findFilmsWithTitleLike("a title which is unlikely to be found at anytime, because it is so long and specific")
+    }
+
+    void "findFilmsWithLanguagesLikeWithCriteria returns all films with a corresponding language or language for any alternative title"() {
+        given:
+        def matchingLanguage = new Language(name: "matching Language", isoCode: "mL").save()
+        def notMatchingLanguage = new Language(name: "not matching Language", isoCode: "nmL").save()
+        def film = new Film(originalTitle: "title", originalLanguage: matchingLanguage).save()
+
+        def anotherFilm = new Film(originalTitle: "another title", originalLanguage: notMatchingLanguage)
+                .addToDistributionTitles(new FilmTitle(title: "another distribution Title", language: matchingLanguage)).save()
+
+        expect:
+        [film, anotherFilm] == service.findFilmsWithLanguagesLikeWithCriteria("match")
+    }
+
+    void "findFilmsWithTitleLikeWithHql returns all films with a title corresponding to the search term"() {
+        given:
+        def film = new Film(originalTitle: "title").save()
+        new Film(originalTitle: "not matching title").save()
+
+        expect:
+        [film] == service.findFilmsWithTitleLikeWithHql("ti%")
+    }
+
+
 }
